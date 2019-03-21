@@ -5,6 +5,10 @@ date: "3/21/2019"
 output: html_document
 ---
 
+```{r}
+Sys.setlocale("LC_CTYPE","en_US.UTF-8")
+```
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, eval=F)
 library(dplyr)
@@ -53,12 +57,20 @@ gs_auth(new_user = TRUE)
   gs_key() -> mygsKey
 ```
 
+
 ## gs_read: 讀取worksheet
 
 ```{r}
 mygsKey %>%
   gs_read(ws="Form Responses 1") -> myWorksheet
+#ws="表單內其中一個sheet的名稱"
 ```
+
+```{r}
+mygsKey %>%
+  gs_read(ws="yixuan") -> yixuan
+```
+
 
 ## gs_edit
 
@@ -73,8 +85,9 @@ myWorksheet %>%
 
 ```{r}
 lunchPreference %>%
-  gs_edit_cells(mygsKey,ws="便當偏好",
-                input=.,
-                anchor="A1") -> mygsKey
+  gs_edit_cells(mygsKey,ws="yixuan", #ws->worksheet name
+                input=.,  #. represent "lunchPreference"
+                anchor="A1") -> mygsKey 
+#anchor="A1"->從表單的第A1格開始貼過去
 ```
 
